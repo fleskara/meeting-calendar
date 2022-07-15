@@ -63,8 +63,6 @@ const ModalDialog: React.FC<Props> = ({ day, onClose, onSave}) => {
 
     const handleSelectMember = (event: ChangeEvent<HTMLSelectElement>) => {
         setMeeting((prev) => ({ ...prev, membersIds: Array.from(event.target.selectedOptions, (option) => option.value)}));
-        console.log(meeting.membersIds);
-        
     };
 
     useEffect(() => {

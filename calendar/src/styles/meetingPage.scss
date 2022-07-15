@@ -8,7 +8,7 @@
     width: 100%;
     height: 100%;
 
-    background: rgba(0, 0, 0, 0.8);
+    background: cornflowerblue;
 
     display: flex;
     flex-direction: column;
@@ -31,13 +31,44 @@
 
         padding: 10px;
 
-        .deleteButton {
-            margin-right: 5px;
+        border-radius: 5%;
 
-            background-color: red;
-            border: none;
-            border-radius: 5px;
-            color: white;
+        .meeting-modal-header {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+
+            height: fit-content;
+            border-bottom: 3px solid cornflowerblue;
+
+            h1 {
+                padding: 0;
+                margin: 0;
+
+                font-size: 24px;
+            }
+        }
+
+        h2 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .meeting-modal-footer {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+
+            border-top: 3px solid cornflowerblue;
+            padding: 5px;
+            .deleteButton {
+                margin-right: 5px;
+
+                background-color: red;
+                border: none;
+                border-radius: 5px;
+                color: white;
+            }
         }
     }
 }

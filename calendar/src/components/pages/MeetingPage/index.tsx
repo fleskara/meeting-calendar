@@ -12,25 +12,33 @@ const MeetingPage = () => {
     const navigate = useNavigate();
     
     const deleteCurrentMeeting = () => {
-        CalendarService.deleteMeeting(id!).then(() => navigate(-1));
+        CalendarService.deleteMeeting(id || '').then(() => navigate(-1));
     }
 
     useEffect(() => {
-        CalendarService.getMeetingById(id!).then(setMeeting);
+        CalendarService.getMeetingById(id || '').then((responese: any) => {
+            setMeeting({...responese, membersIds: responese.members})
+        });
     }, []);
-
+    
     return  <div className="meeting-page">
         <div className="meeting-info">
-        <h2>{meeting?.title}</h2>
-        <p>Desctiption: {meeting?.description}</p>
-        <p>Time: {meeting?.time}</p>
-        <h3>Participants: </h3>
-        <ul>
-            {meeting?.membersIds?.map((member, index) => (
-                <li key={index}>A</li>
-            ))}
-        </ul>
-        <button className="deleteButton" onClick={deleteCurrentMeeting}>Delete meeting</button>
+        <header className="meeting-modal-header">
+            <h2>{meeting?.title}</h2>
+        </header>
+        <main>
+            <p>Desctiption: {meeting?.description}</p>
+            <p>Time: {meeting?.time}</p>
+            <p>Participants: </p>
+            <ul>
+                {meeting?.membersIds?.map((member, index) => (
+                    <li key={index}>{member}</li>
+                ))}
+            </ul>
+        </main>
+        <footer className="meeting-modal-footer">
+            <button className="deleteButton" onClick={deleteCurrentMeeting}>Delete meeting</button>
+        </footer>
         </div>
     </div>
 };
