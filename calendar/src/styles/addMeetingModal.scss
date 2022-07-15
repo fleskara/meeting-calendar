@@ -1,0 +1,117 @@
+.add-meeting {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.8);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .add-meeting-modal {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        border-radius: none;
+        background: white;
+
+        width: fit-content;
+        min-width: 300px;
+
+        height: fit-content;
+        min-height: 150px;
+
+        .meeting-modal-header {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+
+            height: fit-content;
+            border-bottom: 3px solid cornflowerblue;
+
+            h1 {
+                padding: 0;
+                margin: 0;
+
+                font-size: 24px;
+            }
+        }
+
+        .meeting-modal-main {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 10px;
+
+            > div {
+                display: flex;
+                justify-content: space-between;
+
+                span {
+                    width: 150px
+                }
+            }
+
+            .input-field {
+                display: flex;
+                flex-direction: column;
+                margin-left: 10px;
+                width: 100%;
+                gap: 5px;
+
+                .error-label {
+                    color: red;
+                    font-size: 10px;
+                }
+            }
+
+            input {
+                border: none;
+                border-bottom: 1px solid cornflowerblue;
+            }
+
+            select {
+                border: none;
+                border-bottom: 1px solid cornflowerblue;
+                border-right: 1px solid cornflowerblue;
+                flex-grow: 1;
+            }
+        }
+
+        .meeting-modal-footer {
+            display: flex;
+            flex-direction: row;
+            justify-content: end;
+
+            border-top: 3px solid cornflowerblue;
+            padding: 5px;
+
+            .closeButton {
+                margin-right: 5px;
+
+                background-color: red;
+                border: none;
+                border-radius: 5px;
+                color: white;
+            }
+
+            .saveButton {
+                margin-right: 5px;
+
+                background-color: green;
+                border: none;
+                border-radius: 5px;
+                color: white;
+            }
+        }
+    }
+    
+}
