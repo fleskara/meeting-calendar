@@ -1,80 +1,96 @@
 const mongoose = require('mongoose');
 const Meeting = require('../models/meetings.js');
 
+const getAllMeetings = async (req, res, next) => {
+    try {
+        const allMeetings = await Meeting.find({}).exec();
+        if (allMeetings === null) {
+            res.status(404).json({});
+        }
+        else {
+            res.status(200).json(allMeetings);
+        }
+    } catch(error) {
+        next(error);
+    } 
+};
+
 const getMeetingById = async (req, res, next) => {
-    const _id= req.params.id;
+    const id = req.params.id;
 
     try {
-        if (!_id) {
+        if (!id) {
             const error = new Error("Meeting id is missing!");
             error.status = 400;
             throw error;
         }
 
-        const meeting = await Meeting.findOne({_id: _id}).exec();
-        res.status(200).json(meeting);
-
+        const meeting = await Meeting.findOne({_id: id}).exec();
+        if (meeting === null) {
+            res.status(404).json({});
+        }
+        else {
+            res.status(200).json(meeting);
+        }
     } catch(error) {
         next(error);
     }
 };
 
-const addNewMeating = async () => {
-    const {_title, _description, _day, 
-        _month, _year, _time, _members} = req.body;
+const addNewMeating = async (req, res, next) => {
+    const {title, description, day, 
+        month, year, time, membersIds} = req.body;
 
     try {
-        if (!_title || !description || !_day, 
-            !_month || !_year || !_time || !_members) {
+        if (!title || !description || !day || 
+            !month || !year || !time || !membersIds) {
                 const error = new Error("Missing information for new meeting!");
                 error.status = 400;
                 throw error;
         }
+
         const newMeeting = new Meeting({
             _id: mongoose.Types.ObjectId(),
-            title: _title,
-            description: _description,
-            day: _day,
-            month: _month,
-            year: _year,
-            time: _time,
-            members: _members
+            title: title,
+            description: description,
+            day: day,
+            month: month,
+            year: year,
+            time: time,
+            members: membersIds
         });
 
-        await newBook.save();
+        await newMeeting.save();
         res.status(200).json(newMeeting);
     } catch(error) {
         next(error);
     }
 };
 
-const deleteMeeting = async () => {
-    const _id= req.params.id;
+const deleteMeeting = async (req, res, next) => {
+    const id = req.params.id;
 
     try {
-        if (!_id) {
+        if (!id) {
             const error = new Error("Meeting id is missing!");
             error.status = 400;
             throw error;
         }
 
-        const meeting = await Book.deleteOne({_id: _id}).exec();
+        const meeting = await Meeting.deleteOne({_id: id}).exec();
 
-        if(meeting.deletedCount == 1) {
+        if (meeting.deletedCount == 1) {
             res.status(200).json({success: true});
         } else {
             res.status(404).json();
         }
-    
-        await meetingService.deleteMeeting(id);
-        res.status(200).json();
-
     } catch(error) {
         next(error);
     }
 };
 
 module.exports = {
+    getAllMeetings,
     getMeetingById,
     addNewMeating,
     deleteMeeting
