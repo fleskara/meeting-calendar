@@ -1,10 +1,27 @@
 const express = require('express');
-const { json } = require('body-parser');
+const mongoose = require('mongoose');
+const { urlencoded, json } = require('body-parser');
 const meetingsRouter = require('./routes/meetings');
 
 const app = express();
 
+const databaseString = process.env.DB_STRING || 'mongodb://localhost:27017/calendar_db';
+
+mongoose.connect(databaseString, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
+
+mongoose.connection.once('open', function() {
+    console.log('Connected to database succesfully!');
+});
+
+mongoose.connection.on('error', function() {
+    console.log('Connection error', error);
+});
+
 app.use(json());
+app.use(urlencoded({ extended: true }));
 
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
@@ -19,7 +36,7 @@ app.use(function (req, res, next) {
     next();
 }); 
 
-app.use('/api/meetings', meetingsRouter);
+app.use('/meetings', meetingsRouter);
 
 app.use(function (req, res, next) {
     const error = new Error('Request is not supported!');
